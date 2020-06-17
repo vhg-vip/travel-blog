@@ -1,0 +1,30 @@
+$dark-grey: #696969;
+$blue: #194D91;
+
+.menu-bar{
+    height: 60px;
+    background-color: #F2F2F2;
+    margin: 0px;
+    display: flex;
+    align-items: center;
+
+    .horizontal-menu{
+        .menu-list{
+            display: flex;
+            align-items: center;
+            margin: 0px;
+            .menu-item{
+                list-style: none;
+                margin-right: 2rem;
+                &:hover{
+                    color: $blue;
+                }
+            }
+        }
+    }
+    .social-bar{
+        display: flex;
+        font-size: 1.5rem;
+        color: $dark-grey;
+    }
+}
