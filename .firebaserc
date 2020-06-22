@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "travel-blog-71228"
+  },
+  "targets": {
+    "travel-blog-71228": {
+      "hosting": {
+        "travel-app": [
+          "travel-blog-71228"
+        ]
+      }
+    }
+  }
+}

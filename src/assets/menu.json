@@ -1,0 +1,26 @@
+[
+    {
+        "title": "Home",
+        "isActive": true
+    },
+    {
+        "title": "About",
+        "isActive": false
+    },
+    {
+        "title": "Travel",
+        "isActive": false
+    },
+    {
+        "title": "Eat",
+        "isActive": false
+    },
+    {
+        "title": "Relax",
+        "isActive": false
+    },
+    {
+        "title": "Video",
+        "isActive": false
+    }
+]
