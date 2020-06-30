@@ -11,13 +11,14 @@ export class AppComponent {
   title = 'travel-app';
   menu: any;
   sideMenu: boolean = false;
+  posts: any;
 
   constructor(public httpSerive: HttpsService){
     this.getMenu();
   }
 
   getMenu(){
-    this.httpSerive.get().subscribe( data => {
+    this.httpSerive.getMenu().subscribe( data => {
       this.menu = data;
       console.log(data);
     })

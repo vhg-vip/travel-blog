@@ -1,1 +1,26 @@
-<p>post works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-2 col-sm-1 col-1"></div>
+        <div class="col-xl-8 col-sm-10 post-container col-10">
+            <img class="post-img" [src]=[post.image]>
+            <div class="caption-container">
+                <div class="user-box">
+                    <div class="avatar">
+                        <img class="avt" src="../../../assets/image/avatar.jpg">
+                    </div>
+                    <div class="username-box">
+                        <div class="username">
+                            <p>Hương Nguyễn</p>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <p class="date">Jun 16</p>
+                    </div>
+                </div>
+                <p class="title-post">{{post.title}}</p>
+                <p class="caption">{{post.caption}}</p>
+            </div>
+        </div>
+        <div class="col-xl-2 col-sm-0 col-0"></div>
+
+    </div>
+</div>

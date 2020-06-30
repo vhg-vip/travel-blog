@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from '@angular/fire/firestore'
 import { Menu } from '../models/menu';
 import { Observable } from 'rxjs';
+import { Post } from '../models/post';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,14 +12,22 @@ export class HttpsService {
   menu: Observable<Menu[]>;
   menuDoc: AngularFirestoreDocument<Menu>;
 
+  posts: Observable<any>
+  postCollection: AngularFirestoreCollection<Post>;
+
   constructor(private http: HttpClient, 
               public afs: AngularFirestore
   ) {
     this.menu = this.afs.collection('menu').valueChanges();
+    this.posts = this.afs.collection('posts').valueChanges();
   }
 
-  get(){
+  getMenu(){
     return this.menu;
+  }
+  
+  getPost(){
+    return this.posts;
   }
 
   update(menu: Menu){

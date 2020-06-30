@@ -2,7 +2,7 @@
   <div class="col-lg-2 col-sm-0"></div>
   <div class="col-lg-5 col-sm-8 horizontal-menu">
     <ul class="menu-list">
-      <li class="menu-item" *ngFor="let item of menu" [ngClass]="{'active': item.isActive == true}"> {{item.title}} </li>
+      <li class="menu-item" *ngFor="let item of menu" [routerLink]=[item.link] [ngClass]="{'active': item.isActive == true}"> {{item.title}} </li>
     </ul>
   </div>
   <div class="col-10 col-lg-3 col-sm-4 social-bar"> 
@@ -10,6 +10,8 @@
     <a href="https://www.instagram.com/vhg_v.i.p/"><i class="icon fa fa-instagram"></i> </a>
     <a href="https://www.pinterest.com/?autologin=true"><i class="icon fa fa-pinterest-p"></i></a>
     <a href="https://twitter.com/explore"><i class="icon fa fa-twitter"></i></a>
+    <div routerLink="./upload"> <i class="icon fa fa-upload"></i></div>
+   
   </div>
   <div class="bar-btn col-2">
     <i class="icon fa fa-bars" (click)="toggleMenu()"></i>

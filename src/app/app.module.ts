@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './view/home/home.component';
 import { AboutComponent } from './view/about/about.component';
 import { PostComponent } from './view/post/post.component';
+import { UploadComponent } from './view/upload/upload.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { PostComponent } from './view/post/post.component';
     AppComponent,
     HomeComponent,
     AboutComponent,
-    PostComponent
+    PostComponent,
+    UploadComponent
   ],
   imports: [
     BrowserModule,
