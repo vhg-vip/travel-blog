@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument}
 import { Menu } from '../models/menu';
 import { Observable } from 'rxjs';
 import { Post } from '../models/post';
+import { Comment } from '../models/comment';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,6 +15,9 @@ export class HttpsService {
 
   posts: Observable<any>
   postCollection: AngularFirestoreCollection<Post>;
+
+  comments: Observable<any>
+  commentCollection: AngularFirestoreCollection<Comment>;
 
   constructor(private http: HttpClient, 
               public afs: AngularFirestore
@@ -30,9 +34,18 @@ export class HttpsService {
     return this.posts;
   }
 
+  getComment(id: string){
+    this.comments = this.afs.collection('posts').doc(id).collection('comment').valueChanges();
+    return this.comments;
+  }
+
   update(menu: Menu){
     this.menuDoc = this.afs.doc(`menu/${menu.id}`);
     this.menuDoc.update(menu);
+  }
+
+  postComment(id: string, cmt: Comment){
+    this.afs.collection('posts').doc(id).collection('comment').add({...cmt});
   }
 }
 

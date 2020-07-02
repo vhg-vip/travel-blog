@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Post } from 'src/app/models/post';
 
 @Component({
@@ -9,9 +9,17 @@ import { Post } from 'src/app/models/post';
 export class PostComponent implements OnInit {
   @Input() post: Post;
 
+  likeActive: boolean = false;
+
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+  }
+
+  like(){
+    this.likeActive = !this.likeActive;
+    if(this.likeActive == true) this.post.countLike++;
+    else this.post.countLike--;
   }
 
 }

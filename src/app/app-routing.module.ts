@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './view/home/home.component';
 import { AboutComponent } from './view/about/about.component';
 import { UploadComponent } from './view/upload/upload.component';
+import { DetailPostComponent } from './view/detail-post/detail-post.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'upload',
     component: UploadComponent
+  },
+  {
+    path: 'detail-post/:id',
+    component: DetailPostComponent
   }
 ];
 

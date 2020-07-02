@@ -1,8 +1,8 @@
-<div class="container-fluid">
+<div class="container-fluid" >
     <div class="row">
         <div class="col-xl-2 col-sm-1 col-1"></div>
         <div class="col-xl-8 col-sm-10 post-container col-10">
-            <img class="post-img" [src]=[post.image]>
+            <img class="post-img" [src]=[post.image] routerLink="/detail-post/{{post.id}}">
             <div class="caption-container">
                 <div class="user-box">
                     <div class="avatar">
@@ -16,9 +16,24 @@
                         <p class="date">Jun 16</p>
                     </div>
                 </div>
-                <p class="title-post">{{post.title}}</p>
+                <p class="title-post" routerLink="/detail-post/{{post.id}}">{{post.title}}</p>
                 <p class="caption">{{post.caption}}</p>
+                <div class="interactive-container">
+                    <div class="cmt-box">
+                        <div class="view">6 views</div>
+                        <div class="comment-box" routerLink="/detail-post/{{post.id}}">
+                            <p class="write-cmt" [ngClass]="{'show-cmt': post.comments?.length <= 0 || post.comments.length == undefined}">Write a comment</p>
+                            <p class="cmt" [ngClass]="{'show-cmt': post.comments?.length > 0}">{{post.comments?.length}} comment</p>
+                        </div>
+                    </div>
+                    <div class="like-box">
+                        <div class="count">{{post.countLike}}</div>
+                        <i class="fa fa-heart" [ngClass]="{'likeActive': likeActive == false}" (click)="like()"></i>
+                        <i class="fa fa-heart-o" [ngClass]="{'likeActive': likeActive == true}" (click)="like()"></i>
+                    </div>
+                </div>
             </div>
+            
         </div>
         <div class="col-xl-2 col-sm-0 col-0"></div>
 

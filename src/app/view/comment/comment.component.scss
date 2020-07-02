@@ -1,0 +1,56 @@
+$light-grey: #f1f4fc;
+
+.comment-container{
+    border: solid 1px $light-grey;
+    margin-top: 2rem;
+    padding: 3rem 5rem;
+    .user-box{
+        display: flex;
+        justify-content: space-between;
+        .username-box{
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            .avatar{
+                border-radius: 50%;
+                height: 40px;
+                width: 40px;
+                margin-right: 1rem;
+                .avt{
+                    object-fit: cover;
+                    border-radius: 50%;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .username{
+                display: flex;
+                p{
+                    margin: 0;
+                    margin-right: 0.75rem;
+                }
+                .fa-star{
+                    transform: rotate(-100deg);
+                }
+            }
+        }
+        
+    }
+    .comment{
+        margin-top: 2rem;
+        .cmt-input{
+            width: 100%;
+            border: none;
+            -ms-overflow-style: none;
+            &:focus{
+                outline: none;
+            }
+        }
+        .cmt-input::-webkit-scrollbar {
+            display: none;
+        }
+    }
+    .send-btn {
+        text-align: end;
+    }
+}

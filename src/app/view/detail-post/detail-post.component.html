@@ -1,0 +1,73 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-2 col-sm-1 col-1"></div>
+        <div class="col-xl-8 col-sm-10 col-10">
+            <div class="post-container">
+                <div class="user-box">
+                    <div class="username-box">
+                        <div class="avatar">
+                            <img class="avt" src="../../../assets/image/avatar.jpg">
+                        </div>
+                        <div class="username">
+                            <p>Hương Nguyễn</p>
+                            <i class="fa fa-star"></i>
+                            <p class="date">Jun 16</p>
+                        </div>
+                    </div>
+                    <i class="fa fa-ellipsis-v"></i>
+                </div>
+
+                <div class="post">
+                    <h1 class="title">{{post?.title}}</h1>
+                    <div class="body-post">
+                        <p class="update-time">Updated: a day ago.</p>
+                        <p class="intro">{{post?.intro}}</p>
+                        <div class="image">
+                            <img [src]=[post.image]>
+                        </div>
+                        <p class="text">{{post.detail}}</p>
+                    </div>
+                        <div class="interactive-container">
+                            <div class="cmt-box">
+                                <div class="view">6 views</div>
+                                <div class="comment-box">
+                                    <p class="write-cmt" [ngClass]="{'show-cmt': post.comments?.length <= 0 || post.comments.length == undefined}">Write a comment</p>
+                                    <p class="cmt" [ngClass]="{'show-cmt': post.comments?.length > 0}">{{post.comments?.length}} comment</p>
+                                </div>
+                            </div>
+                            <div class="like-box">
+                                <div class="count">{{post.countLike}}</div>
+                                <i class="fa fa-heart" [ngClass]="{'likeActive': likeActive == false}" (click)="like()"></i>
+                                <i class="fa fa-heart-o" [ngClass]="{'likeActive': likeActive == true}" (click)="like()"></i>
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+            <div class="comment-container">
+                <div class="user-box">
+                    <div class="username-box">
+                        <div class="avatar">
+                            <img class="avt" src="../../../assets/image/avatar.jpg">
+                        </div>
+                        <div class="username">
+                            <p>Hương Nguyễn</p>
+                            <i class="fa fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="comment">
+                    <textarea class="cmt-input" type="text" placeholder="Write a comment" [(ngModel)]="cmt"></textarea>
+                </div>
+                <div class="send-btn ">
+                    <button class="btn btn-primary" (click)="sendComment()">Publish</button>
+                </div>
+            </div>
+            <div *ngFor="let cmt of post.comments">
+                <app-comment [comment]="cmt"></app-comment>
+            </div>
+            
+        </div>
+        <div class="col-xl-2 col-sm-0 col-0"></div>
+    </div>
+</div>

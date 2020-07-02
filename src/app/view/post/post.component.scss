@@ -1,5 +1,6 @@
 $light-grey: #f1f4fc;
 $light-blue: #2573DA;
+$grey: #c0bebe;
 
 @mixin large-screen {
     @media (max-width: 1600px) {
@@ -87,5 +88,50 @@ $light-blue: #2573DA;
                 font-size: 1.5rem;
             }
         }
+        .interactive-container{
+          color: rgba(0,0,0,1);;
+          border-top: solid 1px $grey;
+          display: flex;
+          justify-content: space-between;
+          font-size: 0.75rem;
+          padding-top: 1rem;
+          .cmt-box{
+            display: flex;
+            .view{
+              margin-right: 1rem;
+            }
+            .write-cmt{
+              display: none;
+            }
+            .cmt{
+              display: none;
+            }
+            .show-cmt{
+              display: block;
+            }
+            .hide-cmt{
+              display: none;
+            }
+          }
+          .like-box{
+            display: flex;
+            color: red;
+            .count{
+              color: rgba(0,0,0,1);
+              margin-right: 0.75rem;
+            }
+            .fa{
+              padding-top: 3px;
+            }
+            .fa-heart{
+              display: block;
+            }
+            .likeActive{
+              display: none;
+            }
+          }
+        }
     }
+    
 }
+
