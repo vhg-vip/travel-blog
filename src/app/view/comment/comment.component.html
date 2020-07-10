@@ -9,7 +9,40 @@
                 <i class="fa fa-star"></i>
             </div>
         </div>
+        <div class="edit-container">
+            <i class="fa fa-ellipsis-v" (click)="openEdit()"></i>
+            <div class="edit-box" [ngClass]="{'isEdit': openEditBox == true}">
+                <div class="box1">   
+                    <div class="edit" (click)="isEdit()">
+                        <i class="icon fa fa-pencil-square-o"></i>
+                        <p class="text">Edit Comment</p>
+                    </div>
+                </div>
+                <div class="box2">
+                    <div class="delete" (click)="deleteComment($event, comment)">
+                        <i class="icon fa fa-trash-o"></i>
+                        <p class="text">Delete Comment</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </div>
-    <div class="text">{{comment.text}}</div>
+
+    <div class="text" *ngIf="!comment.isEdit">{{comment.text}}</div>
+    <textarea class="cmt-input" *ngIf="comment.isEdit" type="text" placeholder="Write a comment" [(ngModel)]="editText">{{editText}}</textarea>
+    <img class="image-comment" [src]="comment.image" width="100%" height="100%" [ngClass]="{'showImage': comment.image}">
     
+    <div class="button-box" *ngIf="comment.isEdit">
+        <button class="btn cancel-btn" (click)="cancelEdit()">Cancel</button>
+        <button class="btn publish-btn" (click)="updateComment(comment)">Publish</button>
+    </div>
+
+    <div class="like-container" *ngIf="!comment.isEdit"> 
+        <div class="like-box">
+            <div class="count">{{comment.like}}</div>
+            <i class="fa fa-heart" [ngClass]="{'likeActive': comment.likeActive == false}" (click)="like(comment)"></i>
+            <i class="fa fa-heart-o" [ngClass]="{'likeActive': comment.likeActive == true}" (click)="like(comment)"></i>
+        </div>
+    </div>
 </div>

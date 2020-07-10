@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   getPost(){
     this.http.getPost().subscribe(data => {
       this.posts = data;
-      console.log(data);
+      // console.log(data);
     })
   }
 

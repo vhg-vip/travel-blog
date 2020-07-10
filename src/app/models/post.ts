@@ -8,4 +8,5 @@ export class Post{
     comments?: Array<any>;
     countLike: number;
     intro?: string;
+    likeActive: boolean = false;
 }

@@ -5,6 +5,7 @@ import { Menu } from '../models/menu';
 import { Observable } from 'rxjs';
 import { Post } from '../models/post';
 import { Comment } from '../models/comment';
+import { map } from 'rxjs/operators'
 @Injectable({
   providedIn: 'root'
 })
@@ -13,39 +14,69 @@ export class HttpsService {
   menu: Observable<Menu[]>;
   menuDoc: AngularFirestoreDocument<Menu>;
 
-  posts: Observable<any>
+  posts: Observable<Post[]>;
   postCollection: AngularFirestoreCollection<Post>;
 
-  comments: Observable<any>
+  comments: Observable<Comment[]>;
   commentCollection: AngularFirestoreCollection<Comment>;
+  commentDoc: AngularFirestoreDocument<Comment>;
 
   constructor(private http: HttpClient, 
               public afs: AngularFirestore
   ) {
-    this.menu = this.afs.collection('menu').valueChanges();
-    this.posts = this.afs.collection('posts').valueChanges();
+    
   }
 
   getMenu(){
+    this.menu = this.afs.collection('menu').snapshotChanges().pipe(map(changes => {
+      return changes.map(a => {
+        const data = a.payload.doc.data() as Menu;
+        data.id = a.payload.doc.id;
+        return data
+      })
+    }))
     return this.menu;
   }
   
   getPost(){
+    this.posts = this.afs.collection('posts').snapshotChanges().pipe(map(changes => {
+      return changes.map(a => {
+        const data = a.payload.doc.data() as Post;
+        data.id = a.payload.doc.id;
+        return data;
+      })
+    }))
     return this.posts;
   }
 
-  getComment(id: string){
-    this.comments = this.afs.collection('posts').doc(id).collection('comment').valueChanges();
-    return this.comments;
+  updatePost(post: Post){
+    this.afs.doc(`posts/${post.id}`).update(post);
   }
 
-  update(menu: Menu){
-    this.menuDoc = this.afs.doc(`menu/${menu.id}`);
-    this.menuDoc.update(menu);
+  getComment(id: string){
+    this.comments = this.afs.collection('posts').doc(id).collection('comment').snapshotChanges().pipe(map(changes => {
+      return changes.map(a => {
+        const data = a.payload.doc.data() as Comment;
+        data.id = a.payload.doc.id;
+        // console.log(data);
+        return data;
+      })
+    }))
+    return this.comments;
   }
 
   postComment(id: string, cmt: Comment){
     this.afs.collection('posts').doc(id).collection('comment').add({...cmt});
+  }
+
+  deleteComment(cmt: Comment, PostId: string){
+    this.commentDoc = this.afs.doc(`posts/${PostId}/comment/${cmt.id}`);
+    this.commentDoc.delete();
+  }
+
+  updateComment(cmt: Comment, PostId: string){
+    this.commentDoc = this.afs.doc(`posts/${PostId}/comment/${cmt.id}`);
+    this.commentDoc.update(cmt);
   }
 }
 

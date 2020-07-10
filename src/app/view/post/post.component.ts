@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Post } from 'src/app/models/post';
+import { HttpsService } from 'src/app/sevice/https.service';
 
 @Component({
   selector: 'app-post',
@@ -11,15 +12,16 @@ export class PostComponent implements OnInit {
 
   likeActive: boolean = false;
 
-  constructor() { }
+  constructor(private http: HttpsService) { }
 
   ngOnInit() {
   }
 
   like(){
-    this.likeActive = !this.likeActive;
-    if(this.likeActive == true) this.post.countLike++;
+    this.post.likeActive = !this.post.likeActive;
+    if(this.post.likeActive == true) this.post.countLike++;
     else this.post.countLike--;
+    this.http.updatePost(this.post);
   }
 
 }

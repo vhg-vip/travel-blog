@@ -3,6 +3,8 @@ import { Post } from 'src/app/models/post';
 import { HttpsService } from 'src/app/sevice/https.service';
 import { ActivatedRoute } from '@angular/router';
 import { Comment } from 'src/app/models/comment';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { finalize } from "rxjs/operators"
 
 @Component({
   selector: 'app-detail-post',
@@ -15,21 +17,68 @@ export class DetailPostComponent implements OnInit {
   cmt: string;
   commentPost: Comment = new Comment();
   id = this.route.snapshot.paramMap.get('id');
+  imgUrl = "";
+  selectedImage: any ;
 
-  constructor(private http: HttpsService, private route: ActivatedRoute) {
+  constructor(private http: HttpsService, 
+              private route: ActivatedRoute,
+              private storage: AngularFireStorage
+    ) {
     this.getPostDetail();
     this.getComment();
   }
 
   ngOnInit(): void {
+    this.reset();
+  }
+
+  showPreview(event: any){
+    if(event.target.files && event.target.files[0]){
+      const reader = new FileReader();
+      reader.onload = (e: any) => this.imgUrl = e.target.result; 
+      reader.readAsDataURL(event.target.files[0]);
+      this.selectedImage = event.target.files[0];
+      console.log(this.selectedImage);
+    }
+    else{
+      this.imgUrl = "";
+      this.selectedImage = null;
+    }
+  }
+
+  reset(){
+    this.cmt = '';
+    this.imgUrl = '';
+    this.selectedImage = null;
+  }
+
+  uploadImage(){
+    let filePath = `image/${this.selectedImage.name}_${new Date().getTime()}`;
+    const fileRef = this.storage.ref(filePath);
+    this.storage.upload(filePath, this.selectedImage).snapshotChanges().pipe(
+      finalize(()=>{
+        fileRef.getDownloadURL().subscribe((url) => {
+          this.commentPost.image = url;
+          this.commentPost.text = this.cmt;
+          this.http.postComment(this.id, this.commentPost);
+          this.reset();
+          console.log(this.commentPost);
+        })
+      })
+    ).subscribe();
     
   }
 
   sendComment(){
-    this.commentPost.text = this.cmt;
-    console.log(this.commentPost);
-    this.http.postComment(this.id, this.commentPost);
-    this.cmt = '';
+    if(this.imgUrl){
+      this.uploadImage();
+    }
+    else{
+      this.commentPost.text = this.cmt;
+      this.http.postComment(this.id, this.commentPost);
+      this.reset();
+    }
+    
   }
 
   getComment(){
@@ -49,9 +98,10 @@ export class DetailPostComponent implements OnInit {
   }
 
   like(){
-    this.likeActive = !this.likeActive;
-    if(this.likeActive == true) this.post.countLike++;
+    this.post.likeActive = !this.post.likeActive;
+    if(this.post.likeActive == true) this.post.countLike++;
     else this.post.countLike--;
+    this.http.updatePost(this.post);
   }
 
 }

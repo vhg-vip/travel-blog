@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-xl-2 col-sm-1 col-1"></div>
-        <div class="col-xl-8 col-sm-10 col-10">
+        <div class="col-xl-2 col-sm-1 col-0"></div>
+        <div class="col-xl-8 col-sm-10 col-12">
             <div class="post-container">
                 <div class="user-box">
                     <div class="username-box">
@@ -37,8 +37,8 @@
                             </div>
                             <div class="like-box">
                                 <div class="count">{{post.countLike}}</div>
-                                <i class="fa fa-heart" [ngClass]="{'likeActive': likeActive == false}" (click)="like()"></i>
-                                <i class="fa fa-heart-o" [ngClass]="{'likeActive': likeActive == true}" (click)="like()"></i>
+                                <i class="fa fa-heart" [ngClass]="{'likeActive': post.likeActive == false}" (click)="like()"></i>
+                                <i class="fa fa-heart-o" [ngClass]="{'likeActive': post.likeActive == true}" (click)="like()"></i>
                             </div>
                         </div>
                 </div>
@@ -57,14 +57,18 @@
                     </div>
                 </div>
                 <div class="comment">
+                    <label class="upload-photo" for="upload-image"><i class="fa fa-picture-o" aria-hidden="true"></i></label>
+                    <input type="file" class="upload-input" accept="image/*" id="upload-image" (change)="showPreview($event)">
                     <textarea class="cmt-input" type="text" placeholder="Write a comment" [(ngModel)]="cmt"></textarea>
+                    <img class="image-cmt" [src]="imgUrl" width="100%" height="100%" [ngClass]="{'showImage': imgUrl}">
                 </div>
                 <div class="send-btn ">
-                    <button class="btn btn-primary" (click)="sendComment()">Publish</button>
+                    <button class="btn btn-primary" (click)="sendComment()" *ngIf="cmt">Publish</button>
+                    <button class="btn btn-primary" disabled *ngIf="!cmt">Publish</button>
                 </div>
             </div>
             <div *ngFor="let cmt of post.comments">
-                <app-comment [comment]="cmt"></app-comment>
+                <app-comment [comment]="cmt" [postID]="id"></app-comment>
             </div>
             
         </div>

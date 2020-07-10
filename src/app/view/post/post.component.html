@@ -28,8 +28,8 @@
                     </div>
                     <div class="like-box">
                         <div class="count">{{post.countLike}}</div>
-                        <i class="fa fa-heart" [ngClass]="{'likeActive': likeActive == false}" (click)="like()"></i>
-                        <i class="fa fa-heart-o" [ngClass]="{'likeActive': likeActive == true}" (click)="like()"></i>
+                        <i class="fa fa-heart" [ngClass]="{'likeActive': post.likeActive == false}" (click)="like()"></i>
+                        <i class="fa fa-heart-o" [ngClass]="{'likeActive': post.likeActive == true}" (click)="like()"></i>
                     </div>
                 </div>
             </div>

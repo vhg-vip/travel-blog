@@ -62,6 +62,10 @@ li{
                 &:hover{
                     color: $blue;
                 }
+                &:focus{
+                    outline: none;
+                    color: $blue;
+                }
             }
             .active{
                 color: $blue;
